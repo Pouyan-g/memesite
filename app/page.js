@@ -1,7 +1,7 @@
 "use client";
-import FetchMeme from "@/Compo/FetchMeme";
-import NavBar from "@/Compo/NavBar";
-import "../Compo/Fetch.css";
+import FetchMeme from "@/components/FetchMeme";
+import NavBar from "@/components/NavBar";
+import "@/components/Fetch.css";
 
 export default function Home() {
   return (

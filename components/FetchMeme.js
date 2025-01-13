@@ -2,6 +2,15 @@
 import { useEffect, useState } from "react";
 import "./Fetch.css";
 import styled from "styled-components";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import MemeLike from "./MemeLike";
 
 const ImgContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
@@ -18,6 +27,7 @@ const ImgContainer = styled.div`
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  border-radius: 8px;
 `;
 
 const FetchMeme = () => {
@@ -32,7 +42,6 @@ const FetchMeme = () => {
           method: "GET",
         });
         const data = await response.json();
-
         // _URL[index] = data.url;
         if (_URL.includes(data.url)) {
           console.log("same value next please");
@@ -67,14 +76,28 @@ const FetchMeme = () => {
           onMouseEnter={() => SetCHover(data.id)}
           onMouseLeave={() => SetCHover(null)}
         >
-          <img src={data.url} className="img" />
-
-          {CHover === data.id ? (
-            <ImgContainer>
-              <h1 className="font-bold m-2 text-white">{data.title}</h1>
-              <h4 className="justify-items-end text-white">{data.sub}</h4>
-            </ImgContainer>
-          ) : null}
+          <Dialog>
+            <DialogTrigger>
+              <img
+                src={data.url}
+                className="img hover:border-2 border-pink-500"
+              />
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <div className="imageShow">
+                <img src={data.url} />
+                <DialogTitle>
+                  <p className="font-bold mt-2 mb-2">{data.title}</p>
+                </DialogTitle>
+                <DialogDescription>
+                  <p>{data.sub}</p>
+                </DialogDescription>
+                <DialogFooter>
+                  <MemeLike />
+                </DialogFooter>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       ))}
     </div>
